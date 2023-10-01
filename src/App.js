@@ -3,6 +3,8 @@ import React, { useState } from "react";
 
 function App() {
 
+  const REST_Service_URL = "https://microservices-crud-operation.onrender.com"
+
   const [view, setView] = useState('login');
 
   const [subview, setSubview] = useState('table');
@@ -15,7 +17,7 @@ function App() {
   })
 
   const login = async () => {
-    await fetch('http://192.168.119.191:8080/users', {
+    await fetch(REST_Service_URL + '/users', {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -52,7 +54,7 @@ function App() {
   }
 
   const updateUser = async () => {
-    await fetch('http://192.168.119.191:8080/users/' + user.id, {
+    await fetch(REST_Service_URL + '/users/' + user.id, {
       method: 'PUT',
       body: JSON.stringify(user),
       headers: {
@@ -71,21 +73,21 @@ function App() {
   };
 
   const deletUser = async () => {
-    await fetch('http://192.168.119.191:8080/users/' + user.id, {
+    await fetch(REST_Service_URL + '/users/' + user.id, {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
         'Content-type': 'application/json; charset=UTF-8',
         'Access-Control-Allow-Origin': '*',
       },
-    }).then(() => {alert('user deleted successfully!');  setView('login')})
+    }).then(() => { alert('user deleted successfully!'); setView('login') })
       .catch((err) => {
         console.log(err.message);
       });
   };
 
   const register = async () => {
-    await fetch('http://192.168.119.191:8080/users', {
+    await fetch(REST_Service_URL + '/users', {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
